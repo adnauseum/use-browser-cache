@@ -1,7 +1,7 @@
 {
   "name": "@adnauseum/use-browser-cache",
   "version": "1.0.0",
-  "description": "A React hook which manages a localfoorage instance you can use to persist data in your web applications.",
+  "description": "A React hook which manages a localforage instance you can use to persist data in your web applications.",
   "author": "adnauseum",
   "license": "MIT",
   "repository": "adnauseum/@adnauseum/use-browser-cache",
