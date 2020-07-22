@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/@adnauseum/use-browser-cache/static/css/main.09608258.chunk.css",
+    "main.js": "/@adnauseum/use-browser-cache/static/js/main.a6a506e3.chunk.js",
+    "main.js.map": "/@adnauseum/use-browser-cache/static/js/main.a6a506e3.chunk.js.map",
+    "runtime-main.js": "/@adnauseum/use-browser-cache/static/js/runtime-main.25089709.js",
+    "runtime-main.js.map": "/@adnauseum/use-browser-cache/static/js/runtime-main.25089709.js.map",
+    "static/js/2.bc5b1747.chunk.js": "/@adnauseum/use-browser-cache/static/js/2.bc5b1747.chunk.js",
+    "static/js/2.bc5b1747.chunk.js.map": "/@adnauseum/use-browser-cache/static/js/2.bc5b1747.chunk.js.map",
+    "index.html": "/@adnauseum/use-browser-cache/index.html",
+    "precache-manifest.dc6f549e58e0d57ebdffd90023de0d00.js": "/@adnauseum/use-browser-cache/precache-manifest.dc6f549e58e0d57ebdffd90023de0d00.js",
+    "service-worker.js": "/@adnauseum/use-browser-cache/service-worker.js",
+    "static/css/main.09608258.chunk.css.map": "/@adnauseum/use-browser-cache/static/css/main.09608258.chunk.css.map",
+    "static/js/2.bc5b1747.chunk.js.LICENSE.txt": "/@adnauseum/use-browser-cache/static/js/2.bc5b1747.chunk.js.LICENSE.txt",
+    "static/js/main.a6a506e3.chunk.js.LICENSE.txt": "/@adnauseum/use-browser-cache/static/js/main.a6a506e3.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.25089709.js",
+    "static/js/2.bc5b1747.chunk.js",
+    "static/css/main.09608258.chunk.css",
+    "static/js/main.a6a506e3.chunk.js"
+  ]
+}

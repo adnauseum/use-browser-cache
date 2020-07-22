@@ -1,0 +1,2 @@
+body{padding:2rem;margin:0;font-family:sans-serif;color:#8cdef7;background:#242424}nav ul{list-style-type:none;margin:0;padding:0;display:flex}nav ul li button{margin-right:1rem}button{cursor:pointer;padding:1rem;background:#585858;border:1px solid #868686;color:#8cdef7;font-weight:700;border-radius:3px}button:hover{background:rgba(88,88,88,.658)}button:disabled{cursor:not-allowed;pointer-events:none;color:rgba(140,222,247,.603);background:rgba(44,44,44,.658)}
+/*# sourceMappingURL=main.09608258.chunk.css.map */
