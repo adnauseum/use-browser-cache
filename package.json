@@ -1,10 +1,10 @@
 {
-  "name": "@adnauseum/use-browser-cache",
+  "name": "use-browser-cache",
   "version": "1.0.0",
   "description": "A React hook which manages a localforage instance you can use to persist data in your web applications.",
   "author": "adnauseum",
   "license": "MIT",
-  "repository": "adnauseum/@adnauseum/use-browser-cache",
+  "repository": "adnauseum/use-browser-cache",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
