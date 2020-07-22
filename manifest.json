@@ -1,6 +1,6 @@
 {
-  "short_name": "@adnauseum/use-browser-cache",
-  "name": "@adnauseum/use-browser-cache",
+  "short_name": "use-browser-cache",
+  "name": "use-browser-cache",
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",
