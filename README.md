@@ -1,20 +1,22 @@
-# @adnauseum/use-browser-cache
+# use-browser-cache
 
 > A React hook which manages a localforage instance you can use to persist data in your web applications.
 
-[![NPM](https://img.shields.io/npm/v/@adnauseum/use-browser-cache.svg)](https://www.npmjs.com/package/@adnauseum/use-browser-cache) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/use-browser-cache.svg)](https://www.npmjs.com/package/@adnauseum/use-browser-cache) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save @adnauseum/use-browser-cache
+npm install --save use-browser-cache
 ```
 
 ## Usage
 
+You can [play with an example here](https://adnauseum.github.io/use-browser-cache/) or just look at the code:
+
 ```tsx
 import React, { useEffect, useState } from "react";
-import { useBrowserCache } from "@adnauseum/use-browser-cache";
+import { useBrowserCache } from "use-browser-cache";
 
 export function App() {
   const [data, setData] = useState(null);
