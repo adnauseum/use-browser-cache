@@ -1,5 +1,38 @@
-/* body {
+body {
+  padding: 2rem 2rem;
+  margin: 0;
+  font-family: sans-serif;
+  color: rgb(140, 222, 247);
+  background: rgb(36, 36, 36);
+}
+
+nav ul {
+  list-style-type: none;
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-} */
+  display: flex;
+}
+
+nav ul li button {
+  margin-right: 1rem;
+}
+
+button {
+  cursor: pointer;
+  padding: 1rem;
+  background: rgb(88, 88, 88);
+  border: 1px solid rgb(134, 134, 134);
+  color: rgb(140, 222, 247);
+  font-weight: bold;
+  border-radius: 3px;
+}
+button:hover {
+  background: rgba(88, 88, 88, 0.658);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: rgba(140, 222, 247, 0.603);
+  background: rgba(44, 44, 44, 0.658);
+}

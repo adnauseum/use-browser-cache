@@ -5,10 +5,10 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@adnauseum/use-browser-cache": "file:..",
     "react": "file:../node_modules/react",
     "react-dom": "^16.9.0",
-    "react-scripts": "^3.0.1",
-    "@adnauseum/use-browser-cache": "file:.."
+    "react-scripts": "^3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
