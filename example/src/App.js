@@ -18,7 +18,6 @@ export function App() {
         const cachedResults = await browserCache.getItemAsync(
           String(pageNumberToFetch)
         );
-        console.log("🐶: fetchData -> cachedResults", cachedResults);
         setData(cachedResults);
       }
 
