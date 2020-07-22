@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useBrowserCache } from "@adnauseum/use-browser-cache";
+import { useBrowserCache } from "use-browser-cache";
 
 export function App() {
   const [data, setData] = useState(null);

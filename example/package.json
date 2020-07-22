@@ -1,11 +1,11 @@
 {
-  "name": "@adnauseum/use-browser-cache-example",
+  "name": "use-browser-cache-example",
   "homepage": "https://adnauseum.github.io/use-browser-cache",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@adnauseum/use-browser-cache": "file:..",
+    "use-browser-cache": "file:..",
     "react": "file:../node_modules/react",
     "react-dom": "^16.9.0",
     "react-scripts": "^3.0.1"
