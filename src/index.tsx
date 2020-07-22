@@ -11,17 +11,18 @@ enum InternalCacheKeys {
 type CacheOptions = {
   expireCacheAfterXMilliseconds?: number;
 };
-type CachedItem = {
+type CachedItem<T> = {
   key: string;
-  value: any;
+  value: T;
   options: CacheOptions;
 };
 type HookApi = {
+  clearCache: () => void;
   cacheIsReady: boolean;
-  getItemAsync: (key: string) => Promise<any | null>;
-  setItemAsync: (
+  getItemAsync: <T>(key: string) => Promise<T | null>;
+  setItemAsync: <T>(
     key: string,
-    value: any,
+    value: T,
     options?: CacheOptions
   ) => Promise<void>;
 };
@@ -86,13 +87,17 @@ export function useBrowserCache(configuration: CacheOptions = {}): HookApi {
     };
   }, [browserCache, configuration]);
 
-  async function setItemAsync(key: string, value: any, options?: CacheOptions) {
+  async function setItemAsync<T>(
+    key: string,
+    value: T,
+    options?: CacheOptions
+  ) {
     if (!browserCache) throw new Error("No instance of browser cache exists.");
     try {
       // Under the hood, each item is stored as an object: { value: any, options: CachedItemOptions }
       // to enable the ability to expire individual items in the cache
       await browserCache.setItem(key, {
-        value: value,
+        value,
         options: options || {},
       });
     } catch (error) {
@@ -101,10 +106,10 @@ export function useBrowserCache(configuration: CacheOptions = {}): HookApi {
     }
   }
 
-  async function getItemAsync(key: string): Promise<any> {
+  async function getItemAsync<T>(key: string): Promise<T | null> {
     if (!browserCache) throw new Error("No instance of browser cache exists.");
     try {
-      const cachedItem: CachedItem = await browserCache.getItem(key);
+      const cachedItem: CachedItem<T> = await browserCache.getItem(key);
 
       if (!cachedItem) return null;
 
@@ -121,8 +126,11 @@ export function useBrowserCache(configuration: CacheOptions = {}): HookApi {
     }
   }
   return {
+    cacheIsReady: browserCache !== null,
+    clearCache: () => {
+      if (browserCache) browserCache.clear();
+    },
     getItemAsync,
     setItemAsync,
-    cacheIsReady: browserCache !== null,
   };
 }
