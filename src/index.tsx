@@ -34,50 +34,55 @@ export function useBrowserCache(configuration: CacheOptions = {}): HookApi {
     if (browserCache) return;
 
     async function createNewInstanceIfExistingHasExpired() {
-      // Create a namespaced store in the browser's cache APIs. If the store exists already,
-      // and hasn't expired, the store is returned. The localforage method might be more aptly
-      // named: `createOrReturnInstance` ¯\_(ツ)_/¯
-      const newOrExistingStore = localforage.createInstance({
-        name: InternalCacheKeys.DEFAULT_STORE_NAME,
-        ...configuration,
-      });
+      try {
+        // Create a namespaced store in the browser's cache APIs. If the store exists already,
+        // and hasn't expired, the store is returned. The localforage method might be more aptly
+        // named: `createOrReturnInstance` ¯\_(ツ)_/¯
+        const newOrExistingStore = localforage.createInstance({
+          name: InternalCacheKeys.DEFAULT_STORE_NAME,
+          ...configuration,
+        });
 
-      const actualExpirationDate:
-        | number
-        | null = await newOrExistingStore.getItem(
-        InternalCacheKeys.STORE_EXPIRATION
-      );
+        const actualExpirationDate: number | null =
+          await newOrExistingStore.getItem(InternalCacheKeys.STORE_EXPIRATION);
 
-      const now = Date.now();
-      const {
-        expireCacheAfterXMilliseconds = TWENTY_FOUR_HOURS_IN_MILLIS,
-      } = configuration;
-      const expirationDate = now + expireCacheAfterXMilliseconds;
+        const now = Date.now();
+        const { expireCacheAfterXMilliseconds = TWENTY_FOUR_HOURS_IN_MILLIS } =
+          configuration;
+        const expirationDate = now + expireCacheAfterXMilliseconds;
 
-      if (!actualExpirationDate) {
-        await newOrExistingStore.setItem(
+        if (!actualExpirationDate) {
+          await newOrExistingStore.setItem(
+            InternalCacheKeys.STORE_EXPIRATION,
+            expirationDate
+          );
+          return setBrowserCache(newOrExistingStore);
+        }
+
+        if (now < actualExpirationDate) {
+          return setBrowserCache(newOrExistingStore);
+        }
+
+        // Drop the cache when it expires
+        await localforage.dropInstance({
+          name: InternalCacheKeys.DEFAULT_STORE_NAME,
+        });
+
+        const newStore = localforage.createInstance({
+          name: InternalCacheKeys.DEFAULT_STORE_NAME,
+        });
+        await newStore.setItem(
           InternalCacheKeys.STORE_EXPIRATION,
           expirationDate
         );
-        return setBrowserCache(newOrExistingStore);
+        return setBrowserCache(newStore);
+      } catch (error) {
+        console.error(
+          `use-browser-cache createNewInstanceIfExistingHasExpired error:`,
+          error
+        );
+        return setBrowserCache(null);
       }
-
-      if (now < actualExpirationDate) {
-        return setBrowserCache(newOrExistingStore);
-      }
-
-      // Drop the cache when it expires
-      await localforage.dropInstance({
-        name: InternalCacheKeys.DEFAULT_STORE_NAME,
-      });
-      const newStore = localforage.createInstance({
-        name: InternalCacheKeys.DEFAULT_STORE_NAME,
-      });
-      await newStore.setItem(
-        InternalCacheKeys.STORE_EXPIRATION,
-        expirationDate
-      );
-      return setBrowserCache(newStore);
     }
 
     let current = true;
@@ -101,15 +106,14 @@ export function useBrowserCache(configuration: CacheOptions = {}): HookApi {
         options: options || {},
       });
     } catch (error) {
-      console.error(error);
-      return error;
+      console.error(`use-browser-cache setItemAsync error`, error);
     }
   }
 
   async function getItemAsync<T>(key: string): Promise<T | null> {
     if (!browserCache) throw new Error("No instance of browser cache exists.");
     try {
-      const cachedItem: CachedItem<T> = await browserCache.getItem(key);
+      const cachedItem: CachedItem<T> | null = await browserCache.getItem(key);
 
       if (!cachedItem) return null;
 
@@ -121,8 +125,8 @@ export function useBrowserCache(configuration: CacheOptions = {}): HookApi {
 
       return cachedItem.value;
     } catch (error) {
-      console.error(error);
-      return error;
+      console.error(`use-browser-cache getItemAsync error`, error);
+      return null;
     }
   }
   return {

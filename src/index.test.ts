@@ -1,13 +1,12 @@
 import { useBrowserCache } from "./";
 import { renderHook } from "@testing-library/react-hooks";
 import FakeTimers from "@sinonjs/fake-timers";
+import localforage from "localforage";
 
 it("uses existing caches and drops expired caches at initialization", async () => {
   const clock = FakeTimers.install({ now: 0, shouldAdvanceTime: false });
-  const {
-    result: result1,
-    waitForNextUpdate: waitForNextUpdate_1,
-  } = renderHook(() => useBrowserCache({ expireCacheAfterXMilliseconds: 2 }));
+  const { result: result1, waitForNextUpdate: waitForNextUpdate_1 } =
+    renderHook(() => useBrowserCache({ expireCacheAfterXMilliseconds: 2 }));
   expect(result1.current.cacheIsReady).toBe(false);
   await waitForNextUpdate_1();
   expect(result1.current.cacheIsReady).toBe(true);
@@ -15,10 +14,8 @@ it("uses existing caches and drops expired caches at initialization", async () =
 
   await clock.tickAsync(1); // Cache is has one more ms before expiration
 
-  const {
-    result: result2,
-    waitForNextUpdate: waitForNextUpdate_2,
-  } = renderHook(() => useBrowserCache());
+  const { result: result2, waitForNextUpdate: waitForNextUpdate_2 } =
+    renderHook(() => useBrowserCache());
   expect(result2.current.cacheIsReady).toBe(false);
   await waitForNextUpdate_2();
   expect(result2.current.cacheIsReady).toBe(true);
@@ -29,10 +26,8 @@ it("uses existing caches and drops expired caches at initialization", async () =
 
   await clock.tickAsync(1); // We have reached the 2 ms of expiration 🚽
 
-  const {
-    result: result3,
-    waitForNextUpdate: waitForNextUpdate_3,
-  } = renderHook(() => useBrowserCache());
+  const { result: result3, waitForNextUpdate: waitForNextUpdate_3 } =
+    renderHook(() => useBrowserCache());
   expect(result3.current.cacheIsReady).toBe(false);
 
   await waitForNextUpdate_3();
@@ -47,10 +42,8 @@ it("uses existing caches and drops expired caches at initialization", async () =
 it("expires individual items in cache", async () => {
   const clock = FakeTimers.install({ now: 0, shouldAdvanceTime: false });
 
-  const {
-    result: result1,
-    waitForNextUpdate: waitForNextUpdate_1,
-  } = renderHook(() => useBrowserCache());
+  const { result: result1, waitForNextUpdate: waitForNextUpdate_1 } =
+    renderHook(() => useBrowserCache());
   expect(result1.current.cacheIsReady).toBe(false);
   await waitForNextUpdate_1();
   expect(result1.current.cacheIsReady).toBe(true);
@@ -61,10 +54,8 @@ it("expires individual items in cache", async () => {
 
   await clock.tickAsync(1); // One second left for item expiration
 
-  const {
-    result: result2,
-    waitForNextUpdate: waitForNextUpdate_2,
-  } = renderHook(() => useBrowserCache());
+  const { result: result2, waitForNextUpdate: waitForNextUpdate_2 } =
+    renderHook(() => useBrowserCache());
   expect(result2.current.cacheIsReady).toBe(false);
   await waitForNextUpdate_2();
   expect(result2.current.cacheIsReady).toBe(true);
@@ -75,10 +66,8 @@ it("expires individual items in cache", async () => {
 
   await clock.tickAsync(2); // theFleetingTreasure has expired
 
-  const {
-    result: result3,
-    waitForNextUpdate: waitForNextUpdate_3,
-  } = renderHook(() => useBrowserCache());
+  const { result: result3, waitForNextUpdate: waitForNextUpdate_3 } =
+    renderHook(() => useBrowserCache());
   expect(result3.current.cacheIsReady).toBe(false);
   await waitForNextUpdate_3();
   expect(result3.current.cacheIsReady).toBe(true);
